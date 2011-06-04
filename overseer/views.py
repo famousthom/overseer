@@ -1,3 +1,4 @@
+
 import datetime
 import urlparse
 
@@ -11,6 +12,8 @@ from django.views.decorators.csrf import csrf_protect
 from overseer import context_processors, conf
 from overseer.forms import NewSubscriptionForm, UpdateSubscriptionForm
 from overseer.models import Service, Event, Subscription, UnverifiedSubscription
+
+
 
 def requires(value_or_callable):
     def wrapped(func):
@@ -203,3 +206,14 @@ def verify_subscription(request, ident):
     return respond('overseer/subscription_confirmed.html', {
         'subscription': subscription,
     }, request)
+
+
+if conf.REQUIRE_LOGIN:
+    from django.contrib.auth.decorators import login_required as require_login
+    index = require_login(index)
+    service = require_login(service)
+    event = require_login(event)
+    last_event = require_login(last_event)
+    update_subscription = require_login(update_subscription)
+    create_subscription = require_login(create_subscription)
+    verify_subscription = require_login(verify_subscription)
