@@ -18,3 +18,5 @@ BASE_URL = base.get('BASE_URL')
 ALLOW_SUBSCRIPTIONS = base.get('ALLOW_SUBSCRIPTIONS', False)
 
 FROM_EMAIL = base.get('FROM_EMAIL')
+
+REQUIRE_LOGIN = base.get('REQUIRE_LOGIN', True)
